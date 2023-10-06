@@ -587,9 +587,9 @@ Note：[Source website](https://ece.umass.edu/seminar) may be empty when there's
 
 </Route>
 
-## 成都信息工程大学 {#cheng-dou-xin-xi-gong-cheng-da-xue}
+## 成都信息工程大学 {#cheng-du-xin-xi-gong-cheng-da-xue}
 
-### 成信新闻网 {#cheng-dou-xin-xi-gong-cheng-da-xue-cheng-xin-xin-wen-wang}
+### 成信新闻网 {#cheng-du-xin-xi-gong-cheng-da-xue-cheng-xin-xin-wen-wang}
 
 <Route author="kimika" example="/cuit/cxxww/1" path="/cuit/cxxww/:type?" paramsDesc={['默认为 `1`']}>
 
@@ -1832,6 +1832,10 @@ jsjxy.hbut.edu.cn 证书链不全，自建 RSSHub 可设置环境变量 NODE_TLS
 ### 华农研讯 {#hua-nan-nong-ye-da-xue-hua-nong-yan-xun}
 
 <Route author="shengmaosu" example="/scau/yzb" path="/scau/yzb" radar="1"/>
+
+### 研究生院通知 {#hua-nan-nong-ye-da-xue-yan-jiu-sheng-yuan-tong-zhi}
+
+<Route author="Chunssu" example="/scau/yjsy" path="/scau/yjsy" radar="1"/>
 
 ## 华南师范大学 {#hua-nan-shi-fan-da-xue}
 
