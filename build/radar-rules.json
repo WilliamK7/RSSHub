@@ -3274,6 +3274,12 @@
         "docs": "https://docs.rsshub.app/routes/anime#bangumi-fan-zu-ji-hua",
         "source": "/calendar",
         "target": "/bangumi/tv/calendar/today"
+      },
+      {
+        "title": "成员关注动画榜",
+        "docs": "https://docs.rsshub.app/routes/anime#bangumi-fan-zu-ji-hua",
+        "source": "/anime",
+        "target": "/bangumi/tv/followrank"
       }
     ]
   },
@@ -3333,6 +3339,12 @@
         "docs": "https://docs.rsshub.app/routes/anime#bangumi-fan-zu-ji-hua",
         "source": "/calendar",
         "target": "/bangumi/tv/calendar/today"
+      },
+      {
+        "title": "成员关注动画榜",
+        "docs": "https://docs.rsshub.app/routes/anime#bangumi-fan-zu-ji-hua",
+        "source": "/anime",
+        "target": "/bangumi/tv/followrank"
       }
     ]
   },
@@ -6459,6 +6471,18 @@
           "/"
         ],
         "target": "/cls/hot"
+      }
+    ]
+  },
+  "cma.cn": {
+    "_name": "中国气象局",
+    "weather": [
+      {
+        "title": "天气预报频道",
+        "docs": "https://docs.rsshub.app/routes/forecast#zhong-guo-qi-xiang-ju-tian-qi-yu-bao-pin-dao",
+        "source": [
+          "/web/*"
+        ]
       }
     ]
   },
@@ -12127,6 +12151,13 @@
         "docs": "https://docs.rsshub.app/routes/shopping#guang-diu",
         "source": [
           "/cheaps.php"
+        ]
+      },
+      {
+        "title": "关键字搜索",
+        "docs": "https://docs.rsshub.app/routes/shopping#guang-diu",
+        "source": [
+          "/search.php"
         ]
       }
     ]
