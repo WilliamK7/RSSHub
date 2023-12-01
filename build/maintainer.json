@@ -741,6 +741,9 @@
     "/bangumi/tv/user/blog/:id": [
         "nczitzk"
     ],
+    "/bangumi/tv/user/wish/:id": [
+        "honue"
+    ],
     "/banyuetan/:name": [],
     "/banyuetan/byt/:time?": [],
     "/baozimh/comic/:name": [
@@ -2228,7 +2231,9 @@
         "nczitzk"
     ],
     "/egameqq/room/:id": [],
-    "/egsea/flash": [],
+    "/egsea/flash": [
+        "hillerliao"
+    ],
     "/ehentai/favorites/:favcat?/:order?/:page?/:routeParams?": [
         "yindaheng98",
         "syrinka"
@@ -2588,6 +2593,9 @@
         "StevenRCE0"
     ],
     "/gdoujwc": [],
+    "/gdsrx/id?": [
+        "nczitzk"
+    ],
     "/gdut/oa_news/:type?": [
         "Jim Kirisame"
     ],
@@ -2964,7 +2972,7 @@
     "/gov/news/:uid": [
         "EsuRt"
     ],
-    "/gov/nifdc/:path+": [
+    "/gov/nifdc/:path?": [
         "nczitzk"
     ],
     "/gov/nmpa/:path+": [
@@ -3109,6 +3117,9 @@
     "/greasyfork/scripts/:script/versions": [
         "miles170"
     ],
+    "/greasyfork/scripts/sort/:sort/:language?": [
+        "ingjieye"
+    ],
     "/grist": [
         "Rjnishant530"
     ],
@@ -3250,7 +3261,9 @@
     "/hanime/video": [],
     "/haohaozhu/discover/:keyword?": [],
     "/haohaozhu/whole-house/:keyword?": [],
-    "/harvard/health/blog": [],
+    "/harvard/health/blog": [
+        "nczitzk"
+    ],
     "/hashnode/blog/:username": [
         "hnrainll"
     ],
@@ -4699,6 +4712,9 @@
     ],
     "/mobilism/portal/:type/:fulltext?": [
         "nitezs"
+    ],
+    "/modb/topic/:id": [
+        "yueneiqi"
     ],
     "/modelscope/community": [
         "TonyRL"
@@ -7404,8 +7420,9 @@
     "/weibo/oasis/user/:userid": [
         "kt286"
     ],
-    "/weibo/search/hot": [
-        "xyqfer"
+    "/weibo/search/hot/:fulltext?": [
+        "xyqfer",
+        "shinemoon"
     ],
     "/weibo/super_index/:id/:type?/:routeParams?": [
         "zengxs",
