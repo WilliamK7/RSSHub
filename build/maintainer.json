@@ -4052,6 +4052,12 @@
         "auto-bot-ty"
     ],
     "/lifetimes/:category?": [],
+    "/lifeweek/channel/:channel": [
+        "changren-wcr"
+    ],
+    "/lifeweek/tag/:tag": [
+        "changren-wcr"
+    ],
     "/lightnovel/:keywords/:security_key?": [
         "nightmare-mio"
     ],
@@ -4289,6 +4295,9 @@
         "Derekmini"
     ],
     "/mediadigest/:range/:category?": [],
+    "/medieval-china": [
+        "artefaritaKuniklo"
+    ],
     "/medium/following/:user": [
         "ImSingee"
     ],
@@ -5054,6 +5063,9 @@
     "/panewslab/topic/:id": [
         "nczitzk"
     ],
+    "/papers/:category?": [
+        "nczitzk"
+    ],
     "/paradigm/writing": [
         "Fatpandac"
     ],
@@ -5452,7 +5464,8 @@
     ],
     "/qutoutiao/category/:cid": [],
     "/qweather/3days/:location": [
-        "Rein-Ou"
+        "Rein-Ou",
+        "la3rence"
     ],
     "/qweather/now/:location": [
         "Rein-Ou"
@@ -5793,8 +5806,9 @@
         "gumibea",
         "TeamSUEP"
     ],
-    "/shmeea": [
-        "jialinghui"
+    "/shmeea/:id?": [
+        "jialinghui",
+        "Misaka13514"
     ],
     "/shmeea/self-study": [
         "h2ws"
