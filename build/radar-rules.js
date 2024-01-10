@@ -4604,6 +4604,11 @@
         docs:"https://docs.rsshub.app/routes/new-media#e-gong-si",
         source:[ "/news/flash" ],
         target:"/egsea/flash" } ] },
+  "ekantipur.com":{ _name:"Ekantipur",
+    ".":[ { title:"Full Article RSS",
+        docs:"https://docs.rsshub.app/routes/traditional-media#ekantipur-%E0%A4%95%E0%A4%BE%E0%A4%A8%E0%A5%8D%E0%A4%A4%E0%A4%BF%E0%A4%AA%E0%A5%81%E0%A4%B0-nepal",
+        source:[ "/:channel" ],
+        target:"/ekantipur/:channel" } ] },
   "elasticsearch.cn":{ _name:"Elastic 中文社区",
     ".":[ { title:"发现",
         docs:"https://docs.rsshub.app/routes/bbs#elastic-zhong-wen-she-qu-fa-xian",
@@ -7690,6 +7695,21 @@
         source:[ "/lives/:id",
           "/" ],
         target:"/houxu/lives/:id" } ] },
+  "hoyolab.com":{ _name:"HoYoLAB",
+    ".":[ { title:"活动公告资讯",
+        docs:"https://docs.rsshub.app/routes/game#hoyolab-news",
+        source:[ "/",
+          "/circles/:gid/:unknow/official" ],
+        target:(params, url) => {
+                    const typeMap = {
+                        notices: '1',
+                        events: '2',
+                        news: '3',
+                    };
+                    const query = new URL(url).searchParams;
+                    const type = typeMap[query.get('page_sort')] || '2';
+                    return `/hoyolab/news/zh-cn/${params?.gid || 2}/${type}`;
+                } } ] },
   "hpoi.net":{ _name:"Hpoi手办维基",
     www:[ { title:"情报",
         docs:"https://docs.rsshub.app/routes/anime#hpoi-shou-ban-wei-ji",
@@ -7753,7 +7773,12 @@
         docs:"https://docs.rsshub.app/routes/programming#huggingface",
         source:[ "/papers",
           "/" ],
-        target:"/huggingface/daily-papers" } ] },
+        target:"/huggingface/daily-papers" },
+      { title:"中文博客",
+        docs:"https://docs.rsshub.app/routes/programming#huggingface",
+        source:[ "/blog/zh",
+          "/" ],
+        target:"/huggingface/blog-zh" } ] },
   "hunanpea.com":{ _name:"湖南人事考试网",
     rsks:[ { title:"公告",
         docs:"https://docs.rsshub.app/routes/study#hu-nan-ren-shi-kao-shi-wang",

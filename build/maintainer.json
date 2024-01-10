@@ -2088,6 +2088,9 @@
         "yindaheng98",
         "syrinka"
     ],
+    "/ekantipur/:channel?": [
+        "maniche04"
+    ],
     "/elasticsearch-cn/:params?": [
         "nczitzk"
     ],
@@ -3250,6 +3253,9 @@
     "/houxu/memory": [
         "nczitzk"
     ],
+    "/hoyolab/news/:language/:gids/:type": [
+        "ZenoTian"
+    ],
     "/hpoi/bannerItem": [
         "DIYgod"
     ],
@@ -3298,6 +3304,9 @@
     ],
     "/hubu/news/:type": [],
     "/hudongba/:city/:id": [],
+    "/huggingface/blog-zh": [
+        "zcf0508"
+    ],
     "/huggingface/daily-papers": [
         "zeyugao"
     ],
