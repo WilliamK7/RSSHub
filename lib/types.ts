@@ -1,3 +1,6 @@
+import type { Context } from 'hono';
+
+// rss
 export type DataItem = {
     title: string;
     description?: string;
@@ -42,4 +45,77 @@ export type Data = {
     language?: string;
     feedLink?: string;
     lastBuildDate?: string;
+};
+
+// namespace
+interface NamespaceItem {
+    name: string;
+    url?: string;
+    categories?: string[];
+    description?: string;
+}
+
+interface Namespace extends NamespaceItem {
+    ja?: NamespaceItem;
+    zh?: NamespaceItem;
+    'zh-TW'?: NamespaceItem;
+}
+
+export type { Namespace };
+
+// route
+interface RouteItem {
+    path: string | string[];
+    name: string;
+    url?: string;
+    maintainers: string[];
+    handler: (ctx: Context) => Promise<Data> | Data;
+    example: string;
+    parameters?: Record<string, string>;
+    description?: string;
+    categories?: string[];
+
+    features: {
+        requireConfig?:
+            | {
+                  name: string;
+                  optional?: boolean;
+                  description: string;
+              }[]
+            | false;
+        requirePuppeteer?: boolean;
+        antiCrawler?: boolean;
+        supportRadar?: boolean;
+        supportBT?: boolean;
+        supportPodcast?: boolean;
+        supportScihub?: boolean;
+    };
+    radar?: {
+        source: string[];
+        target?: string;
+    };
+}
+
+interface Route extends RouteItem {
+    ja?: NamespaceItem;
+    zh?: NamespaceItem;
+    'zh-TW'?: NamespaceItem;
+}
+
+export type { Route };
+
+// radar
+export type Radar = {
+    [domain: string]:
+        | {
+              [subdomain: string]: {
+                  title: string;
+                  docs: string;
+                  source: string[];
+                  target: string | ((params: any, url: string) => string);
+              }[];
+          }
+        | {
+              _name: string;
+          };
 };
