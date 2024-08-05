@@ -26,7 +26,7 @@ function getDomList($, detailUrl) {
     return list;
 }
 
-function getItemList($, detailUrl, second) {
+export function getItemList($, detailUrl, second) {
     const encoded = $('.article script[type]')
         .text()
         .match(/return p}\('(.*)',(\d+),(\d+),'(.*)'.split\(/);
@@ -37,7 +37,7 @@ function getItemList($, detailUrl, second) {
     const data = JSON.parse(
         decodeCipherText(encoded[1], encoded[2], encoded[3], encoded[4].split('|'), 0, {})
             .match(/var down_urls=\\'(.*)\\'/)[1]
-            .replaceAll('\\\\"', '"')
+            .replaceAll(String.raw`\\"`, '"')
             .replaceAll(/\\{3}/g, '')
     );
     // support secondary download address
@@ -83,9 +83,11 @@ export const route: Route = {
         supportPodcast: false,
         supportScihub: false,
     },
-    radar: {
-        source: ['domp4.cc/detail/:id'],
-    },
+    radar: [
+        {
+            source: ['domp4.cc/detail/:id'],
+        },
+    ],
     name: '剧集订阅',
     maintainers: ['savokiss'],
     handler,

@@ -1,5 +1,5 @@
 import { Route } from '@/types';
-import got from '@/utils/got';
+import ofetch from '@/utils/ofetch';
 import { parseDate } from '@/utils/parse-date';
 
 export const route: Route = {
@@ -15,9 +15,11 @@ export const route: Route = {
         supportPodcast: false,
         supportScihub: false,
     },
-    radar: {
-        source: ['freebuf.com/articles/:type/*.html', 'freebuf.com/articles/:type'],
-    },
+    radar: [
+        {
+            source: ['freebuf.com/articles/:type/*.html', 'freebuf.com/articles/:type'],
+        },
+    ],
     name: '文章',
     maintainers: ['trganda'],
     handler,
@@ -38,7 +40,7 @@ async function handler(ctx) {
             referer: 'https://www.freebuf.com',
             accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
         },
-        searchParams: {
+        query: {
             name: type,
             page: 1,
             limit: 20,
@@ -48,7 +50,7 @@ async function handler(ctx) {
         },
     };
 
-    const response = await got.get(fapi, options).json();
+    const response = await ofetch(fapi, options);
 
     const items = response.data.data_list.map((item) => ({
         title: item.post_title,

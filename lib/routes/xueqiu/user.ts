@@ -4,6 +4,7 @@ import got from '@/utils/got';
 import queryString from 'query-string';
 import { parseDate } from '@/utils/parse-date';
 import sanitizeHtml from 'sanitize-html';
+import { parseToken } from '@/routes/xueqiu/cookies';
 
 const rootUrl = 'https://xueqiu.com';
 
@@ -20,10 +21,12 @@ export const route: Route = {
         supportPodcast: false,
         supportScihub: false,
     },
-    radar: {
-        source: ['xueqiu.com/u/:id'],
-        target: '/user/:id',
-    },
+    radar: [
+        {
+            source: ['xueqiu.com/u/:id'],
+            target: '/user/:id',
+        },
+    ],
     name: '用户动态',
     maintainers: ['imlonghao'],
     handler,
@@ -45,12 +48,7 @@ async function handler(ctx) {
         11: '交易',
     };
 
-    const res1 = await got({
-        method: 'get',
-        url: rootUrl,
-    });
-    const token = res1.headers['set-cookie'].find((s) => s.startsWith('xq_a_token=')).split(';')[0];
-
+    const token = await parseToken();
     const res2 = await got({
         method: 'get',
         url: `${rootUrl}/v4/statuses/user_timeline.json`,
@@ -85,7 +83,7 @@ async function handler(ctx) {
                 const description = item.description + retweetedStatus;
 
                 return {
-                    title: item.title ?? sanitizeHtml(description, { allowedTags: [], allowedAttributes: {} }),
+                    title: item.title || sanitizeHtml(description, { allowedTags: [], allowedAttributes: {} }),
                     description: item.text ? item.text + retweetedStatus : description,
                     pubDate: parseDate(item.created_at),
                     link: rootUrl + item.target,

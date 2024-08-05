@@ -16,9 +16,11 @@ export const route: Route = {
         supportPodcast: false,
         supportScihub: false,
     },
-    radar: {
-        source: ['igetget.com/'],
-    },
+    radar: [
+        {
+            source: ['igetget.com/'],
+        },
+    ],
     name: '首页',
     maintainers: ['nczitzk'],
     handler,
@@ -42,7 +44,7 @@ async function handler(ctx) {
         url: listUrl,
     });
 
-    const currentUrl = `${rootUrl}${listResponse.data.match(new RegExp('<span>' + category + '<\\/span><a href="(.*)" rel="tag"><\\/a>'))[1].split('"')[0]}`;
+    const currentUrl = `${rootUrl}${listResponse.data.match(new RegExp('<span>' + category + String.raw`<\/span><a href="(.*)" rel="tag"><\/a>`))[1].split('"')[0]}`;
 
     const currentResponse = await got({
         method: 'get',

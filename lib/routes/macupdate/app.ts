@@ -16,9 +16,11 @@ export const route: Route = {
         supportPodcast: false,
         supportScihub: false,
     },
-    radar: {
-        source: ['macupdate.com/app/mac/:appId/:appSlug'],
-    },
+    radar: [
+        {
+            source: ['macupdate.com/app/mac/:appId/:appSlug'],
+        },
+    ],
     name: 'Update',
     maintainers: ['TonyRL'],
     handler,
@@ -49,6 +51,10 @@ async function handler(ctx) {
         author: appData.developer.name,
     };
 
+    ctx.set('json', {
+        pageProps: nextData.props.initialProps.pageProps,
+    });
+
     return {
         title: appData.title,
         description: appData.description,
@@ -58,8 +64,4 @@ async function handler(ctx) {
         item: [item],
         language: 'en',
     };
-
-    ctx.set('json', {
-        pageProps: nextData.props.initialProps.pageProps,
-    });
 }

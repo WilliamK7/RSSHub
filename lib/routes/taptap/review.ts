@@ -104,6 +104,29 @@ const fetchIntlItems = async (params) => {
     });
 };
 
+async function handler(ctx) {
+    const is_intl = ctx.req.url.indexOf('/intl/') === 0;
+    const id = ctx.req.param('id');
+    const order = ctx.req.param('order') ?? 'default';
+    const lang = ctx.req.param('lang') ?? (is_intl ? 'en_US' : 'zh_CN');
+
+    const app_detail = await appDetail(id, lang, is_intl);
+    const app_img = app_detail.app.icon.original_url;
+    const app_name = app_detail.app.title;
+
+    const items = is_intl ? await fetchIntlItems(ctx.params) : await fetchMainlandItems(ctx.params);
+
+    const ret = {
+        title: `TapTap 评价 ${app_name} - ${(is_intl ? intlSortMap : sortMap)[order][lang]}排序`,
+        link: `${getRootUrl(is_intl)}/app/${id}/review?${makeSortParam(is_intl, order)}`,
+        image: app_img,
+        item: items,
+    };
+
+    ctx.set('json', ret);
+    return ret;
+}
+
 export const route: Route = {
     path: ['/review/:id/:order?/:lang?', '/intl/review/:id/:order?/:lang?'],
     categories: ['game'],
@@ -117,10 +140,12 @@ export const route: Route = {
         supportPodcast: false,
         supportScihub: false,
     },
-    radar: {
-        source: ['taptap.com/app/:id/review', 'taptap.com/app/:id'],
-        target: '/review/:id',
-    },
+    radar: [
+        {
+            source: ['taptap.com/app/:id/review', 'taptap.com/app/:id'],
+            target: '/review/:id',
+        },
+    ],
     name: '游戏评价',
     maintainers: ['hoilc', 'TonyRL'],
     handler,
@@ -139,30 +164,3 @@ export const route: Route = {
   | ------ | ---- | -------- | -------- |
   | update | hot  | spent    | default  |`,
 };
-
-async function handler(ctx) {
-    const is_intl = ctx.req.url.indexOf('/intl/') === 0;
-    const id = ctx.req.param('id');
-    const order = ctx.req.param('order') ?? 'default';
-    const lang = ctx.req.param('lang') ?? (is_intl ? 'en_US' : 'zh_CN');
-
-    const app_detail = await appDetail(id, lang, is_intl);
-    const app_img = app_detail.app.icon.original_url;
-    const app_name = app_detail.app.title;
-
-    const items = is_intl ? await fetchIntlItems(ctx.params) : await fetchMainlandItems(ctx.params);
-
-    return {
-        title: `TapTap 评价 ${app_name} - ${(is_intl ? intlSortMap : sortMap)[order][lang]}排序`,
-        link: `${getRootUrl(is_intl)}/app/${id}/review?${makeSortParam(is_intl, order)}`,
-        image: app_img,
-        item: items,
-    };
-
-    ctx.set('json', {
-        title: `TapTap 评价 ${app_name} - ${(is_intl ? intlSortMap : sortMap)[order][lang]}排序`,
-        link: `${getRootUrl(is_intl)}/app/${id}/review?${makeSortParam(is_intl, order)}`,
-        image: app_img,
-        item: items,
-    });
-}

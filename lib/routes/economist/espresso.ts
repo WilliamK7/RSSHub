@@ -19,9 +19,11 @@ export const route: Route = {
         supportPodcast: false,
         supportScihub: false,
     },
-    radar: {
-        source: ['economist.com/the-world-in-brief', 'economist.com/espresso'],
-    },
+    radar: [
+        {
+            source: ['economist.com/the-world-in-brief', 'economist.com/espresso'],
+        },
+    ],
     name: 'Espresso',
     maintainers: ['TonyRL'],
     handler,
@@ -40,7 +42,7 @@ async function handler() {
     );
 
     const nextData = JSON.parse($('script#__NEXT_DATA__').text());
-    const parts = nextData.props.pageProps.content.hasPart.parts[0].hasPart.parts.filter((part) => part.type.includes('Article'));
+    const parts = nextData.props.pageProps.content.hasPart.parts[0].hasPart.parts.filter((part) => part.type.includes('Article') && part.headline !== '');
 
     const renderHTML = (node) => {
         let el;

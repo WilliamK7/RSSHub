@@ -59,21 +59,12 @@ const graphqlQuery = {
 
 export const route: Route = {
     path: '/discussed',
-    categories: ['social-media'],
     example: '/daily/discussed',
-    parameters: {},
-    features: {
-        requireConfig: false,
-        requirePuppeteer: false,
-        antiCrawler: false,
-        supportBT: false,
-        supportPodcast: false,
-        supportScihub: false,
-    },
-    radar: {
-        source: ['daily.dev/popular'],
-        target: '',
-    },
+    radar: [
+        {
+            source: ['daily.dev/popular'],
+        },
+    ],
     name: 'Most Discussed',
     maintainers: ['Rjnishant530'],
     handler,

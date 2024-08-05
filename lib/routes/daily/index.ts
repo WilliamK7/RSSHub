@@ -69,11 +69,13 @@ const graphqlQuery = {
 
 export const route: Route = {
     path: '/',
-    radar: {
-        source: ['daily.dev/popular'],
-        target: '',
-    },
-    name: 'Unknown',
+    example: '/daily',
+    radar: [
+        {
+            source: ['daily.dev/popular'],
+        },
+    ],
+    name: 'Popular',
     maintainers: ['Rjnishant530'],
     handler,
     url: 'daily.dev/popular',

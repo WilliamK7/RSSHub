@@ -1,6 +1,6 @@
 import { Route } from '@/types';
 import got from '@/utils/got';
-import utils from './utils';
+import { getSignedHeader, header } from './utils';
 import { load } from 'cheerio';
 import { parseDate } from '@/utils/parse-date';
 
@@ -17,9 +17,11 @@ export const route: Route = {
         supportPodcast: false,
         supportScihub: false,
     },
-    radar: {
-        source: ['zhuanlan.zhihu.com/:id'],
-    },
+    radar: [
+        {
+            source: ['zhuanlan.zhihu.com/:id'],
+        },
+    ],
     name: '专栏',
     maintainers: ['DIYgod'],
     handler,
@@ -32,7 +34,7 @@ async function handler(ctx) {
         method: 'get',
         url: `https://www.zhihu.com/api/v4/columns/${id}/items`,
         headers: {
-            ...utils.header,
+            ...header,
             Referer: `https://zhuanlan.zhihu.com/${id}`,
         },
     });
@@ -41,7 +43,7 @@ async function handler(ctx) {
         method: 'get',
         url: `https://www.zhihu.com/api/v4/columns/${id}/pinned-items`,
         headers: {
-            ...utils.header,
+            ...header,
             Referer: `https://zhuanlan.zhihu.com/${id}`,
         },
     });
@@ -54,7 +56,13 @@ async function handler(ctx) {
         url = `https://www.zhihu.com/column/${id}`;
     }
 
-    const infoRes = await got(url);
+    const signedHeader = await getSignedHeader(url, `https://www.zhihu.com/api/v4/columns/${id}/items`);
+    const infoRes = await got(url, {
+        headers: {
+            ...signedHeader,
+            Referer: url,
+        },
+    });
     const $ = load(infoRes.data);
     const title = $('.css-zyehvu').text();
     const description = $('.css-1bnklpv').text();
@@ -71,7 +79,7 @@ async function handler(ctx) {
         let title = '';
         let link = '';
         let author = '';
-        let pubDate = '';
+        let pubDate: Date;
 
         switch (item.type) {
             case 'answer':

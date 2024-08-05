@@ -17,9 +17,11 @@ export const route: Route = {
         supportPodcast: false,
         supportScihub: false,
     },
-    radar: {
-        source: ['ycombinator.com/:section', 'ycombinator.com/'],
-    },
+    radar: [
+        {
+            source: ['news.ycombinator.com/:section', 'news.ycombinator.com/'],
+        },
+    ],
     name: '用户',
     maintainers: ['nczitzk', 'xie-dongping'],
     handler,

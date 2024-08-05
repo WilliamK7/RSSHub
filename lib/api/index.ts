@@ -1,15 +1,19 @@
 // import { route as rulesRoute, handler as rulesHandler } from '@/api/radar/rules';
 import { route as namespaceAllRoute, handler as namespaceAllHandler } from '@/api/namespace/all';
 import { route as namespaceOneRoute, handler as namespaceOneHandler } from '@/api/namespace/one';
-import { route as radarRulesRoute, handler as radarRulesHandler } from '@/api/radar/rules';
+import { route as radarRulesAllRoute, handler as radarRulesAllHandler } from '@/api/radar/rules/all';
+import { route as radarRulesOneRoute, handler as radarRulesOneHandler } from '@/api/radar/rules/one';
+import { route as categoryOneRoute, handler as categoryOneHandler } from '@/api/category/one';
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { swaggerUI } from '@hono/swagger-ui';
+import { apiReference } from '@scalar/hono-api-reference';
 
 const app = new OpenAPIHono();
 
 app.openapi(namespaceAllRoute, namespaceAllHandler);
 app.openapi(namespaceOneRoute, namespaceOneHandler);
-app.openapi(radarRulesRoute, radarRulesHandler);
+app.openapi(radarRulesAllRoute, radarRulesAllHandler);
+app.openapi(radarRulesOneRoute, radarRulesOneHandler);
+app.openapi(categoryOneRoute, categoryOneHandler);
 
 const docs = app.getOpenAPI31Document({
     openapi: '3.1.0',
@@ -22,8 +26,12 @@ for (const path in docs.paths) {
     docs.paths[`/api${path}`] = docs.paths[path];
     delete docs.paths[path];
 }
-app.get('/docs', (ctx) => ctx.json(docs));
-
-app.get('/ui', swaggerUI({ url: '/api/docs' }));
+app.get('/openapi.json', (ctx) => ctx.json(docs));
+app.get(
+    '/reference',
+    apiReference({
+        spec: { content: docs },
+    })
+);
 
 export default app;

@@ -1,5 +1,5 @@
 import { Route } from '@/types';
-import got from '@/utils/got';
+import ofetch from '@/utils/ofetch';
 import { config } from '@/config';
 import MarkdownIt from 'markdown-it';
 const md = MarkdownIt({
@@ -21,12 +21,14 @@ export const route: Route = {
         supportPodcast: false,
         supportScihub: false,
     },
-    radar: {
-        source: ['github.com/:user/:repo/pulls', 'github.com/:user/:repo/pulls/:id', 'github.com/:user/:repo'],
-        target: '/pull/:user/:repo',
-    },
+    radar: [
+        {
+            source: ['github.com/:user/:repo/pulls', 'github.com/:user/:repo/pulls/:id', 'github.com/:user/:repo'],
+            target: '/pull/:user/:repo',
+        },
+    ],
     name: 'Repo Pull Requests',
-    maintainers: [],
+    maintainers: ['hashman', 'TonyRL'],
     handler,
 };
 
@@ -43,8 +45,8 @@ async function handler(ctx) {
     if (config.github && config.github.access_token) {
         headers.Authorization = `token ${config.github.access_token}`;
     }
-    const response = await got(url, {
-        searchParams: {
+    const response = await ofetch(url, {
+        query: {
             state,
             labels,
             sort: 'created',
@@ -53,7 +55,7 @@ async function handler(ctx) {
         },
         headers,
     });
-    const data = response.data.filter((item) => item.pull_request);
+    const data = response.filter((item) => item.pull_request);
 
     return {
         allowEmpty: true,

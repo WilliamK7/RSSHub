@@ -8,7 +8,7 @@ import { load } from 'cheerio';
 import { parseDate } from '@/utils/parse-date';
 import { config } from '@/config';
 import { art } from '@/utils/render';
-import * as path from 'node:path';
+import path from 'node:path';
 
 export const route: Route = {
     path: '/news/author/:mid',
@@ -23,9 +23,11 @@ export const route: Route = {
         supportPodcast: false,
         supportScihub: false,
     },
-    radar: {
-        source: ['new.qq.com/omn/author/:mid'],
-    },
+    radar: [
+        {
+            source: ['new.qq.com/omn/author/:mid'],
+        },
+    ],
     name: '更新',
     maintainers: ['LogicJake', 'miles170'],
     handler,
@@ -66,17 +68,19 @@ async function handler(ctx) {
                               .text()
                               .match(/window\.DATA = ({.+});/)[1]
                       );
-                      const $data = load(data.originContent.text, null, false);
-
-                      $data('*')
-                          .contents()
-                          .filter((_, elem) => elem.type === 'comment')
-                          .replaceWith((_, elem) =>
-                              art(path.join(__dirname, '../templates/news/image.art'), {
-                                  attribute: elem.data.trim(),
-                                  originAttribute: data.originAttribute,
-                              })
-                          );
+                      const $data = load(data.originContent?.text || '', null, false);
+                      if ($data) {
+                          // Not video page
+                          $data('*')
+                              .contents()
+                              .filter((_, elem) => elem.type === 'comment')
+                              .replaceWith((_, elem) =>
+                                  art(path.join(__dirname, '../templates/news/image.art'), {
+                                      attribute: elem.data.trim(),
+                                      originAttribute: data.originAttribute,
+                                  })
+                              );
+                      }
 
                       return {
                           title,
